@@ -1,0 +1,105 @@
+<div class="page-wrapper bg-gradient-to-br from-cyan-50 via-white to-teal-100">
+
+  <div class="login-container">
+
+    <!-- TOAST -->
+    <div class="toast-wrapper" *ngIf="toastMessage">
+      <div class="toast" [ngClass]="toastType">
+
+        <div class="toast-icon">
+          <span *ngIf="toastType === 'success'">✔</span>
+          <span *ngIf="toastType === 'error'">⚠</span>
+        </div>
+
+        <div class="toast-content">
+          {{ toastMessage }}
+        </div>
+
+        <button class="toast-close" (click)="closeToast()">✕</button>
+
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+
+      <!-- LOGO -->
+      <div class="logo-box">
+        <div class="icon">🎓</div>
+        <h1>PrepExam AI</h1>
+        <p>Smart AI Exam Preparation</p>
+      </div>
+
+      <h2 class="title">Login</h2>
+      <p class="subtitle">Enter mobile number to continue</p>
+
+      <form [formGroup]="loginForm">
+
+        <!-- MOBILE -->
+        <div class="form-group">
+          <label>Mobile Number</label>
+
+          <div class="mobile-input">
+            <span class="code">+91</span>
+            <input
+              type="tel"
+              maxlength="10"
+              formControlName="mobile"
+              placeholder="9876543210"
+            />
+          </div>
+        </div>
+
+        <!-- OTP -->
+        <div *ngIf="showOtp" class="form-group">
+
+          <label>Enter OTP</label>
+
+          <div class="otp-container">
+            <input
+              *ngFor="let box of otpBoxes; let i = index"
+              type="text"
+              maxlength="1"
+              class="otp-box"
+              (input)="onOtpInput($event, i)"
+              (keydown)="onOtpKeyDown($event, i)"
+            />
+          </div>
+
+          <div class="otp-row">
+            <span class="demo-otp">Demo OTP: <b>1234</b></span>
+
+            <button type="button" class="resend-btn" (click)="resendOtp()">
+              Resend OTP
+            </button>
+          </div>
+
+        </div>
+
+        <!-- BUTTON -->
+        <button
+          type="button"
+          class="primary-btn"
+          (click)="showOtp ? verifyOtp() : sendOtp()"
+        >
+          {{ showOtp ? 'Verify OTP' : 'Send OTP' }}
+        </button>
+
+      </form>
+
+      <!-- REGISTER -->
+      <div class="auth-link">
+        <span>Don't have an account?</span>
+        <a routerLink="/register">Create Account</a>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      © 2026 PrepExam AI
+    </div>
+
+  </div>
+
+</div>
